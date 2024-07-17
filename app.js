@@ -11,6 +11,8 @@ const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
 const conversationsRouter = require('./controllers/conversations')
 
+// connect to mongo db
+
 mongoose.connect(config.URL)
     .then(()=> {
         console.log(`connected to ${config.URL}`)
@@ -22,7 +24,7 @@ mongoose.connect(config.URL)
 
 app.use(cors())
 app.use(express.json({limit: '15mb' })) // needed to read request body
-app.use(middleware.requestLog)
+app.use(middleware.requestLog) // request parser 
 
 app.use('/api/users', usersRouter)
 app.use('/api/textbooks', textbooksRouter)

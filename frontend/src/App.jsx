@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import loginService from './services/login'
 import createAccountService from './services/createAccount'
 import textbookService from './services/textbooks'
+import conversationService from './services/conversation'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import Login from './pages/Login'
 import CreateAccount from './pages/CreateAccount'
@@ -16,20 +17,33 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [loginErrorMessage, setLoginErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const [textbooks, setTextbooks] = useState([])
   const [chatVisible, setChatVisible] = useState(false)
+  const [conversations, setConversations] = useState([])
   
   const navigate = useNavigate()
 
-  // use local storage to save user logged in
-  useEffect(()=> {
-    const loggedUserJson = window.localStorage.getItem('loggedUser')
-    if (loggedUserJson) {
-      const user = JSON.parse(loggedUserJson)
-      setUser(user)
-      textbookService.setToken(user.token)
+  // use local storage to save user logged in on refresh
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const loggedUserJson = window.localStorage.getItem('loggedUser')
+      if (loggedUserJson) {
+        const user = JSON.parse(loggedUserJson)
+        setUser(user)
+        textbookService.setToken(user.token)
+        
+        // get conversations if user logged in
+        try {
+          const userConversations = await conversationService.getAllUserConvo(user.id)
+          setConversations(userConversations)
+        } catch (error) {
+          console.error('Error fetching conversations:', error)
+        }
+      }
     }
+  
+    fetchUserData()
   }, [])
 
   // get textbook listings 
@@ -52,18 +66,24 @@ const App = () => {
       const userInfo = {
         username, password
       }
+      // get user
       const currUser = await loginService.login(userInfo)
       window.localStorage.setItem('loggedUser', JSON.stringify(currUser))
-      textbookService.setToken(currUser.token)
+      textbookService.setToken(currUser.token) // set token
+      // set user
       setUser(currUser)
       console.log(currUser)
+      // get user conversations
+      const userConversations = await conversationService.getAllUserConvo(currUser.id)
+      setConversations(userConversations)
+      console.log(userConversations)
       setUsername('')
       setPassword('')
-      setLoginErrorMessage('')
+      setErrorMessage('')
       navigate('/')
     } 
     catch (exception) {
-      setLoginErrorMessage(exception.response.data.error)
+      setErrorMessage(exception.response.data.error)
     }
   }
 
@@ -105,7 +125,11 @@ const App = () => {
       setTextbooks(textbooks => [...textbooks, listingWithSeller])
       console.log('info after saving to db', savedListing)
     } catch (error) {
-      console.log(error)
+      console.log(error.response.data.error)
+      setErrorMessage(error.response.data.error)
+      window.localStorage.clear()
+      setUser(null)
+      navigate('/login')
     }
   }
 
@@ -124,17 +148,19 @@ const App = () => {
       <header>
         <Header user={user} setUser={setUser}></Header>
       </header>
-      <ConvoToggle chatVisible={chatVisible} setChatVisible={setChatVisible}/>
+      <ConvoToggle chatVisible={chatVisible} setChatVisible={setChatVisible} conversations={conversations} user={user}/>
       <Routes>
-        <Route path="/" element={<Home user={user} textbooks={textbooks} handleDelete={handleDelete}/>}/>
+        <Route path="/" element={<Home user={user} textbooks={textbooks} 
+        handleDelete={handleDelete} conversations={conversations} 
+        setConversations={setConversations}/>}/>
         <Route path='/login' element={<Login login={handleLogin} 
         userChange={event => setUsername(event.target.value)}
         passwordChange={event => setPassword(event.target.value)}
         userVal={username} 
         passwordVal={password}
-        errorMessage={loginErrorMessage}/>}/>
+        errorMessage={errorMessage}/>}/>
         <Route path='/create' element={<CreateAccount signUp={handleSignUp}/>}/>
-        <Route path='/sell' element={<SellItem newListing={handleNewListing}/>}/>
+        <Route path='/sell' element={<SellItem newListing={handleNewListing} errorMessage={errorMessage}/>}/>
         <Route path='/mylistings' element={<MyListings user={user} textbooks={textbooks} handleDelete={handleDelete}/>}/>
       </Routes>
     </>

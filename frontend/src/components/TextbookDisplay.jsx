@@ -1,6 +1,6 @@
 import conversationService from '../services/conversation'
 
-const TextbookDisplay = ({user, textbook, handleDelete}) => {
+const TextbookDisplay = ({user, textbook, handleDelete, conversations, setConversations}) => {
 
   const deleteHandle = async (id) => {
     window.confirm('Are you sure you want to delete this listing?', () => {

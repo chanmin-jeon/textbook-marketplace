@@ -17,7 +17,7 @@ const SellItem = ({newListing}) => {
       setPrice(0.00)
       setImage(null)
     } catch (error) {
-      console.log(error)
+      console.log(error.response.data.error)
     }
   }
 
