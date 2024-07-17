@@ -26,6 +26,9 @@ app.use(cors())
 app.use(express.json({ limit: '15mb' }))
 app.use(middleware.requestLog)
 
+// serve static file from backend 
+app.use(express.static('dist'))
+
 app.use('/api/users', usersRouter)
 app.use('/api/textbooks', textbooksRouter)
 app.use('/api/login', loginRouter)

@@ -9,13 +9,15 @@ const MyListings = ({user, textbooks, handleDelete}) => {
   }
   return (
     <div className="main-container">
-      {textbooks.map(textbook => {
-        if (textbook.seller.id === user.id) {
-          return (
-            <TextbookDisplay key={textbook.id} user={user} textbook={textbook} handleDelete={handleDelete}/>
-          )
-        }
-      })}
+      <div className='textbooks-container'>
+        {textbooks.map(textbook => {
+          if (textbook.seller.id === user.id) {
+            return (
+              <TextbookDisplay key={textbook.id} user={user} textbook={textbook} handleDelete={handleDelete}/>
+            )
+          }
+        })}
+      </div>
     </div>
   )
 }

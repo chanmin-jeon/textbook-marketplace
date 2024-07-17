@@ -6,9 +6,9 @@ const TextbookDisplay = ({user, textbook, handleDelete, setChatVisible, conversa
   const navigate = useNavigate()
 
   const deleteHandle = async (id) => {
-    window.confirm('Are you sure you want to delete this listing?', () => {
-      handleDelete(id)
-    })
+    if (window.confirm('Are you sure you want to delete this listing?')) {
+      await handleDelete(id)
+    }
   }
 
   const createConvo = async (userId, sellerId, textbookId) => {
@@ -58,7 +58,7 @@ const TextbookDisplay = ({user, textbook, handleDelete, setChatVisible, conversa
       </div>
       {user && user.id === textbook.seller.id ?
       <div className="message-seller-btn-container delete-item-btn-container">
-        <button className="delete-item-btn" onClick={() => deleteHandle(textbook.id)}>Delete Listing</button>
+        <button className="delete-item-btn message-seller-btn" onClick={() => deleteHandle(textbook.id)}>Delete Listing</button>
       </div>
       :
       <div className="message-seller-btn-container">
