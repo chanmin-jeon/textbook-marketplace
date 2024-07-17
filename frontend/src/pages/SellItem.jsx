@@ -61,7 +61,11 @@ const SellItem = ({newListing}) => {
           step="0.01" 
           min="0"
           value={price}
-          onChange={event => setPrice(parseFloat(event.target.value))}
+          onChange={event => {
+            const value = parseFloat(event.target.value)
+            const isValid = !isNaN(value)
+            setPrice(isValid ? value : 0.00)
+          }}
           />
         </div>
         <div className='subject-container'>

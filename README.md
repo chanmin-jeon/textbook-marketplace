@@ -15,7 +15,11 @@ TexbookHaven is a full-stack application designed for students to buy and sell u
   - Other Tools: Vite for frontend tooling, MongoDB Atlas for cloud database hosting
 ## Deployment 
 Deployed on Render. 
-Check it out! [TextbookHaven](https://textbook-marketplace.onrender.com)
+Check it out!  
+<br><br/>
+[TextbookHaven](https://textbook-marketplace.onrender.com)
+  - If the link above is not working, then the free tier of render may have run out.
+  - Check out the demo video below!
 ## Demo
   - Demo video coming soon
 ## Usage 
