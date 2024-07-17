@@ -50,7 +50,7 @@ const TextbookDisplay = ({user, textbook, handleDelete, setChatVisible, conversa
         <div>
           <p>subject: {textbook.category}</p>
         </div>
-        <div>
+        <div className='price-display'>
           <p>$ {textbook.price}</p>
         </div>
       </div>

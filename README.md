@@ -27,6 +27,6 @@ Check it out!
   - Posting a Textbook: List a textbook for sale by providing details such as the title, author, subject, and price.
   - Chatting with Buyers/Sellers: Click on a listing to start a conversation with the seller or respond to a buyer inquiry in real-time.
   - Managing Listings: Users can view, or delete their listings through their profile.
-## Live Chat Functinoality
+## Live Chat Functionality
 TexbookHaven uses Socket.io to enable real-time chat between buyers and sellers. The chat feature is automatically activated when users engage in a conversation, providing instant communication. Messages are stored and can be accessed even after the session ends, ensuring continuity in discussions.
 

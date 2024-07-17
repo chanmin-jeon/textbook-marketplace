@@ -368,6 +368,14 @@ nav ul {
   justify-content: center;
 }
 
+.price-display {
+  color: black; 
+}
+
+.article-info-container p {
+  margin: 0.4rem; 
+}
+
 .article-img-container {
   width: 13rem; 
   height: 13rem; 
