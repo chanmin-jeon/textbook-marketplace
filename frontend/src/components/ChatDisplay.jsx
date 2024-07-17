@@ -1,5 +1,4 @@
 const ChatDisplay = ({conversations, onSelectConversation}) => {
-  console.log(conversations)
 
   return (
     <div className="all-chats-container">

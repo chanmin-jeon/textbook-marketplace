@@ -5,10 +5,15 @@ const socketIo = require('socket.io')
 
 const server = http.createServer(app) // create http server with app 
 
+const allowedOrigins = process.env.NODE_ENV === 'test' 
+    ? ['http://localhost:5174', 'http://localhost:8000'] // test origin
+    : ['https://textbook-marketplace.onrender.com'] // production origin
+
+
 // Initialize Socket.IO
 const io = socketIo(server, {
     cors: {
-        origin: ['https://textbook-marketplace.onrender.com'],
+        origin: allowedOrigins,
         credentials: true
     }, 
     pingTimeout: 60000
