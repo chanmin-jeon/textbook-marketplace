@@ -97,18 +97,17 @@ nav ul {
 .main-container {
   display: flex; 
   flex-direction: column;
-  justify-content: flex-start;
   padding-top: 10rem; 
   padding-bottom: 3rem;
   gap: 2rem;
-  height: calc(100vh - 7rem); 
+  height: 100vh; 
   position: relative;
 }
 
 .search-bar {
   position: fixed; 
   left: 35%; 
-  top: 16vh; 
+  top: 8.5rem; 
   width: 30vw; 
   font-size: 1rem;
   border-radius: 0.8rem;
@@ -125,9 +124,7 @@ nav ul {
   align-items: flex-start; 
   justify-content: center;
   gap: 2rem;
-  overflow-y: auto; /* Enable scrolling */
   padding-top: 1rem; 
-  flex-grow: 1; 
   margin-top: 1rem; 
 }
 
@@ -337,7 +334,8 @@ nav ul {
   display: grid; 
   grid-template-columns: 2fr 3fr 1fr;
   align-items: center;
-  width: 30rem; 
+  width: 30vw; 
+  min-width: 25rem; 
   color: purple; 
   height: 15rem; 
 }
@@ -392,7 +390,7 @@ nav ul {
   background-color: white;
   padding: 3rem;
   border-radius: 1rem;
-  height: 50%;
+  height: 30vh; 
   margin: auto; 
   margin-top: 5rem;
 }

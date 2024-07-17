@@ -90,7 +90,7 @@ const SellItem = ({newListing}) => {
         <div className='img-input-display'>
           <input type="file" 
           name="image" 
-          accept=".jpeg, .png, .jpg"
+          accept=".jpeg, .png, .jpg .webp"
           onChange={handleImageChange}/>
           {image ? (
             <img src={image} alt="Uploaded preview" style={{ width: '100px', height: '100px' }}/>
