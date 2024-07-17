@@ -1,12 +1,12 @@
 import TextbookDisplay from '../components/TextBookDisplay'
 
-const Home = ({textbooks}) => {
+const Home = ({user, textbooks, handleDelete}) => {
   return (
     <>
       <div className="main-container">
         {textbooks.map(textbook => {
           return (
-            <TextbookDisplay key={textbook.id} textbook={textbook}/>
+            <TextbookDisplay user={user} key={textbook.id} textbook={textbook} handleDelete={handleDelete}/>
           )
         })}
       </div>

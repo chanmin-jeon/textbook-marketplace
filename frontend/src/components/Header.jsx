@@ -21,17 +21,17 @@ const Header = ({ user, setUser }) => {
         {!user ? (
           <ul>
             <li>
-              <Link className="header-link" to="/login">Login</Link>
+              <Link className="header-link" to="/">Shop</Link>
             </li>
             <li>
-              <Link className="header-link" to="/">About</Link>
+              <Link className="header-link" to="/login">Login</Link>
             </li>
           </ul>
         ) : (
           <>
             <ul>
               <li>
-                <Link className="header-link" to="/">Buy</Link>
+                <Link className="header-link" to="/">Shop</Link>
               </li>
               <li>
                 <Link className="header-link" to="/sell">Sell</Link>

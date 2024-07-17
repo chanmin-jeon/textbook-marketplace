@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import CreateAccount from './pages/CreateAccount'
 import Home from './pages/Home'
 import SellItem from './pages/SellItem'
+import MyListings from './pages/MyListings'
 import Header from './components/Header'
 
 const App = () => {
@@ -35,7 +36,6 @@ const App = () => {
       try {
         const texts = await textbookService.getAll()
         setTextbooks(texts)
-        console.log(texts) // log fetched textbooks
       } catch (error) {
         console.error('Failed to fetch textbooks:', error)
       }
@@ -54,6 +54,7 @@ const App = () => {
       window.localStorage.setItem('loggedUser', JSON.stringify(currUser))
       textbookService.setToken(currUser.token)
       setUser(currUser)
+      console.log(currUser)
       setUsername('')
       setPassword('')
       setLoginErrorMessage('')
@@ -89,8 +90,28 @@ const App = () => {
         imageFile
       }
       const savedListing = await textbookService.createListing(newListing)
-      setTextbooks(textbooks.concat(savedListing))
+      // update from front end
+      const listingWithSeller = {
+        ...savedListing,
+        seller: {
+          id: user.id,
+          username: user.username
+        }
+      }
+      
+      // Update the textbooks state with the new listing
+      setTextbooks(textbooks => [...textbooks, listingWithSeller])
       console.log('info after saving to db', savedListing)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleDelete = async (id) => {
+    try {
+      await textbookService.deleteListing(id)
+      const newTextbooks = textbooks.filter(textbook => textbook.id !== id)
+      setTextbooks(newTextbooks)
     } catch (error) {
       console.log(error)
     }
@@ -102,7 +123,7 @@ const App = () => {
         <Header user={user} setUser={setUser}></Header>
       </header>
       <Routes>
-        <Route path="/" element={<Home loggedUser={user} setUser={setUser} textbooks={textbooks}/>}/>
+        <Route path="/" element={<Home user={user} textbooks={textbooks} handleDelete={handleDelete}/>}/>
         <Route path='/login' element={<Login login={handleLogin} 
         userChange={event => setUsername(event.target.value)}
         passwordChange={event => setPassword(event.target.value)}
@@ -111,6 +132,7 @@ const App = () => {
         errorMessage={loginErrorMessage}/>}/>
         <Route path='/create' element={<CreateAccount signUp={handleSignUp}/>}/>
         <Route path='/sell' element={<SellItem newListing={handleNewListing}/>}/>
+        <Route path='/mylistings' element={<MyListings user={user} textbooks={textbooks} handleDelete={handleDelete}/>}/>
       </Routes>
     </>
   )

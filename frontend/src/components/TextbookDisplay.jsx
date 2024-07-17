@@ -1,4 +1,9 @@
-const TextbookDisplay = ({textbook}) => {
+const TextbookDisplay = ({user, textbook, handleDelete}) => {
+
+  const deleteHandle = async (id) => {
+    handleDelete(id)
+  }
+
   return (
     <article className="textbook-article">
       <div className="article-img-container">
@@ -20,9 +25,15 @@ const TextbookDisplay = ({textbook}) => {
           <p>$ {textbook.price}</p>
         </div>
       </div>
-      <div className="message-seller-btn-container">
-          <button className="message-seller-btn">Message Seller</button>
+      {user && user.id === textbook.seller.id ?
+      <div className="message-seller-btn-container delete-item-btn-container">
+        <button className="delete-item-btn" onClick={() => deleteHandle(textbook.id)}>Delete Listing</button>
       </div>
+      :
+      <div className="message-seller-btn-container">
+        <button className="message-seller-btn">Message Seller</button>
+      </div>
+      }
     </article>
   )
 }

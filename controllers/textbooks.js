@@ -41,7 +41,18 @@ textbooksRouter.post('/', async (req, res) => {
 })
 
 textbooksRouter.delete('/:id', async (req, res) => {
-    await Textbook.findByIdAndDelete(req.params.id)
+    
+    const decodedToken = jwt.verify(getTokenFrom(req), process.env.SECRET)
+    if (!decodedToken.id) {
+        return res.status(401).json({error: 'token invalid'})
+    }
+
+    const textbook = await Textbook.findById(req.params.id)
+    const user = await User.findById(decodedToken.id)
+    
+    if (textbook.seller.toString() === user._id.toString()) {
+        await Textbook.findByIdAndDelete(req.params.id)
+    }    
     res.status(204).end()
 })
 

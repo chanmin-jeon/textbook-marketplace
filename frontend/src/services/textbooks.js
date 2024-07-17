@@ -21,8 +21,17 @@ const createListing = async (listingInfo) => {
   return response.data
 }
 
+const deleteListing = async (textbookId) => {
+  const config = {
+    headers: {Authorization: token}
+  }
+
+  const response = await axios.delete(`${baseURL}/${textbookId}`, config)
+}
+
 export default {
   getAll,
   createListing, 
-  setToken
+  setToken, 
+  deleteListing
 }

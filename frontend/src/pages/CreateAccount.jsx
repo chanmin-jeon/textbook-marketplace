@@ -35,7 +35,6 @@ const CreateAccount = ({signUp}) => {
   }
 
   return (
-    <div className='main-container'>
         <form onSubmit={handleSubmit} 
         className="create-form account-form">
         <div>
@@ -77,8 +76,6 @@ const CreateAccount = ({signUp}) => {
         </div>
         {errorMessage && <p className='error-message'>{errorMessage}</p>}
       </form>
-    </div>
-    
   )
 }
 
