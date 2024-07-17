@@ -17,8 +17,57 @@ body {
 button {
   font-family: Montserrat, arial, sans-serif;
 }
+/* error message */
+.error-message {
+  color: red; 
+  font-style: italic;
+  size: 0.3rem; 
+}
 
-.login-form {
+/* home page styles */ 
+
+.logo {
+  height: 5rem; 
+}
+.main-header {
+  display: grid;
+  grid-template-columns: 1fr 8fr;  
+  align-items: center;
+  justify-content: center;
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  z-index: 1000; 
+  background-color: black;
+}
+
+.logo-title-container {
+  display: flex; 
+  align-items: center;
+  gap: 1rem; 
+  color: white; 
+  padding: 1rem; 
+}
+
+nav {
+  display: flex; 
+  text-decoration: none;
+  justify-content: right;
+  align-items: center;
+  padding-right: 3rem; 
+  font-size: 1rem; 
+}
+
+nav ul {
+  display: flex;
+  gap: 2rem; 
+  text-decoration: none;
+}
+
+/* login styles */
+
+.account-form {
   margin: auto; 
   display: flex; 
   flex-direction: column;
@@ -30,14 +79,14 @@ button {
   background-color: lightgrey;
 }
 
-.login-input {
+.account-input {
   border: none; 
   border-radius: 1rem;
   padding: 0.3rem 0.3rem 0.3rem 0.7rem; 
   font-size: 1rem;
 }
 
-.login-btn {
+.submit-btn {
   background-color: white;
   border: none; 
   border-radius: 1rem;
