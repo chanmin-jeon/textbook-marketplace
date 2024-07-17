@@ -9,8 +9,6 @@ const socket = io.connect(
     : 'https://textbook-marketplace.onrender.com'
 ) 
 
-console.log(process.env.NODE_ENV)
-
 const ChatView = ({ conversation, onBack, user }) => {
   const [messages, setMessages] = useState([])
 

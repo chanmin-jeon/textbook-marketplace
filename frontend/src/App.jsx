@@ -72,7 +72,6 @@ const App = () => {
       textbookService.setToken(currUser.token) // set token
       // set user
       setUser(currUser)
-      console.log(currUser)
       // get user conversations
       const userConversations = await conversationService.getAllUserConvo(currUser.id)
       setConversations(userConversations)
@@ -122,9 +121,7 @@ const App = () => {
       
       // Update the textbooks state with the new listing
       setTextbooks(textbooks => [...textbooks, listingWithSeller])
-      console.log('info after saving to db', savedListing)
     } catch (error) {
-      console.log(error.response.data.error)
       setErrorMessage(error.response.data.error)
       window.localStorage.clear()
       setUser(null)

@@ -17,10 +17,8 @@ const TextbookDisplay = ({user, textbook, handleDelete, setChatVisible, conversa
       sellerId: sellerId, 
       textbookId: textbookId
     }
-    console.log('trying to create convo')
     try {
       const newConvo = await conversationService.createNew(convoInfo)
-      console.log(newConvo)
       if (newConvo.message === 'conversation exists') {
         window.alert('You have already contacted this seller')
       } else {
