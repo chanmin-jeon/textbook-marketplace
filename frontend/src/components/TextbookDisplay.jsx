@@ -1,6 +1,9 @@
 import conversationService from '../services/conversation'
+import { useNavigate } from 'react-router-dom'
 
-const TextbookDisplay = ({user, textbook, handleDelete, conversations, setConversations}) => {
+const TextbookDisplay = ({user, textbook, handleDelete, setChatVisible, conversations, setConversations}) => {
+
+  const navigate = useNavigate()
 
   const deleteHandle = async (id) => {
     window.confirm('Are you sure you want to delete this listing?', () => {
@@ -14,13 +17,23 @@ const TextbookDisplay = ({user, textbook, handleDelete, conversations, setConver
       sellerId: sellerId, 
       textbookId: textbookId
     }
+    console.log('trying to create convo')
     try {
       const newConvo = await conversationService.createNew(convoInfo)
       console.log(newConvo)
+      if (newConvo.message === 'conversation exists') {
+        window.alert('You have already contacted this seller')
+      } else {
+        // get updated user conversations
+        const updatedConversations = await conversationService.getAllUserConvo(user.id)
+        setConversations(updatedConversations)
+        setChatVisible(true)
+      }
     } catch (error) {
       console.log(error)
     }
   }
+
 
   return (
     <article className="textbook-article">
@@ -49,7 +62,13 @@ const TextbookDisplay = ({user, textbook, handleDelete, conversations, setConver
       </div>
       :
       <div className="message-seller-btn-container">
-        <button onClick={() => createConvo(user.id, textbook.seller.id, textbook.id)}className="message-seller-btn">Message Seller</button>
+        <button onClick={() => {
+          if (!user) {
+            navigate('/login')
+          } else {
+            createConvo(user.id, textbook.seller.id, textbook.id)
+          }
+          }}className="message-seller-btn">Message Seller</button>
       </div>
       }
     </article>

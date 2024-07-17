@@ -151,7 +151,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home user={user} textbooks={textbooks} 
         handleDelete={handleDelete} conversations={conversations} 
-        setConversations={setConversations}/>}/>
+        setConversations={setConversations}
+        setChatVisible={setChatVisible}/>}/>
         <Route path='/login' element={<Login login={handleLogin} 
         userChange={event => setUsername(event.target.value)}
         passwordChange={event => setPassword(event.target.value)}

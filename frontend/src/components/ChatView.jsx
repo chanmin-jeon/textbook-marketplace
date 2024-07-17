@@ -17,9 +17,10 @@ const ChatView = ({ conversation, onBack, user }) => {
         setMessages((prevMessages) => {
         // Merge the fetched messages with the current state, avoiding duplicates
         const newMessages = convoMessages.filter(
+          // if message does not exist, include in newMessages
           (convoMessage) => !prevMessages.some((m) => m._id === convoMessage._id)
         )
-        return [...prevMessages, ...newMessages]
+        return [...prevMessages, ...newMessages] // merge them
       })
       } catch (error) {
         console.error('Error fetching conversation messages:', error)
@@ -78,7 +79,7 @@ const ChatView = ({ conversation, onBack, user }) => {
         <div className='title-recipient-container'>
           <h3>{conversation.textbook.title}</h3>
           <div className='message-recipient'>
-            {conversation.seller._id === user.id ? 
+            {conversation.seller.id === user.id ? 
             <p>
               {conversation.buyer.username}
             </p>

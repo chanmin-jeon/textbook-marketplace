@@ -6,6 +6,12 @@ import ChatView from './ChatView';
 const ConvoToggle = ({ chatVisible, setChatVisible, conversations, user }) => {
   const [selectedConversation, setSelectedConversation] = useState(null)
 
+  if (!user) {
+    return (
+      null
+    )
+  }
+
   return (
     <div>
       {!chatVisible ? (

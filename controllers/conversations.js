@@ -49,7 +49,7 @@ conversationsRouter.post('/', async (req, res) => {
 // get conversations of the current user 
 conversationsRouter.get('/:userId', async (req, res) => {
   const userId = req.params.userId
-  
+
   try {
     const user = await User.findById(userId)
     if (!user) {
