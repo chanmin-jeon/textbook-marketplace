@@ -1,13 +1,14 @@
-import Header from '../components/Header'
+import TextbookDisplay from '../components/TextBookDisplay'
 
-const Home = ({loggedUser, userSet}) => {
+const Home = ({textbooks}) => {
   return (
     <>
-      <header>
-        <Header user={loggedUser} setUser={userSet}/>
-      </header>
       <div className="main-container">
-        this is the main container for website
+        {textbooks.map(textbook => {
+          return (
+            <TextbookDisplay key={textbook.id} textbook={textbook}/>
+          )
+        })}
       </div>
     </>
   )

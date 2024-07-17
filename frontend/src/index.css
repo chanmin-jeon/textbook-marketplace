@@ -3,19 +3,25 @@
 body {
   padding: 0; 
   margin: 0; 
+  background-color: darkgrey;
 }
 #root {
-  width: 100vw; 
-  height: 100vh; 
   font-family: Montserrat, arial, sans-serif;
-  background-color: darkgrey;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 button {
   font-family: Montserrat, arial, sans-serif;
+  cursor: pointer; 
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: darkgrey;
+  color: white; 
+}
+
+li {
+  text-decoration: none;
 }
 /* error message */
 .error-message {
@@ -38,6 +44,7 @@ button {
   top: 0; 
   left: 0; 
   width: 100%; 
+  height: 7rem; 
   z-index: 1000; 
   background-color: black;
 }
@@ -57,13 +64,113 @@ nav {
   align-items: center;
   padding-right: 3rem; 
   font-size: 1rem; 
+  gap: 3rem; 
 }
 
 nav ul {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 2rem; 
   text-decoration: none;
 }
+
+.header-link {
+  text-decoration: none;
+  color: purple; 
+}
+
+.account-info-container {
+  display: flex; 
+  color: white; 
+}
+.account-info-container p {
+  font-size: 1.15rem;
+}
+
+.main-container {
+  display: flex; 
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 10rem;
+  padding-bottom: 3rem;
+  gap: 2rem; 
+  height: calc(100vh - 7rem); /* Adjust height to fill the remaining space */
+}
+
+/* textbook article styles */ 
+.textbook-article {
+  border-radius: 1rem; 
+  background-color: white;
+  padding: 2rem; 
+  display: grid; 
+  grid-template-columns: 2fr 3fr 1fr;
+  width: 30rem; 
+  color: purple; 
+}
+
+.message-seller-btn-container {
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
+
+.article-info-container {
+  margin-left: 1rem; 
+}
+
+.article-img-container img {
+  width: 100%; 
+  height: 100%; 
+}
+
+/* sell page styles */ 
+
+.sell-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem; 
+  background-color: white;
+  padding: 3rem;
+  padding-top: 2rem;
+  border-radius: 1rem;
+}
+
+.sell-form h1 {
+  margin-top: 0;
+}
+
+.sell-input {
+  background-color: lightgrey;
+  font-size: 1rem;
+  padding: 0.3rem 0.3rem 0.3rem 0.7rem; 
+  border-radius: 0.8rem;
+  border: none; 
+}
+
+.price-container, .subject-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.listing-btn {
+  background-color: lightgrey;
+  font-size: 1rem;
+  padding: 0.3rem 1rem 0.3rem 1rem; 
+  border: none; 
+  border-radius: 1rem;
+}
+
+.img-input-display {
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
+
 
 /* login styles */
 
@@ -93,4 +200,13 @@ nav ul {
   padding: 0.3rem 1rem 0.3rem 1rem; 
   font-size: 0.8rem;
   font-weight: 500;
+}
+
+.logout-btn {
+  background-color: black;
+  color: white; 
+  font-size: 0.9rem;
+  padding: 1rem;
+  border: none; 
+  cursor: pointer; 
 }

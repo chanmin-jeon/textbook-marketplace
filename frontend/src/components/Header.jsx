@@ -1,11 +1,14 @@
 import logo from '../assets/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = ({ user, setUser }) => {
+
+  const navigate = useNavigate()
 
   const handleLogout = () => {
     window.localStorage.clear();
     setUser(null);
+    navigate('/')
   };
 
   return (
@@ -18,29 +21,32 @@ const Header = ({ user, setUser }) => {
         {!user ? (
           <ul>
             <li>
-              <Link to="/login">Login</Link>
+              <Link className="header-link" to="/login">Login</Link>
             </li>
             <li>
-              <Link to="/">About</Link>
+              <Link className="header-link" to="/">About</Link>
             </li>
           </ul>
         ) : (
           <>
-            <p className='header-greeting'>Hi, {user.name}</p>
             <ul>
               <li>
-                <Link to="/">Buy</Link>
+                <Link className="header-link" to="/">Buy</Link>
               </li>
               <li>
-                <Link to="/sell">Sell</Link>
+                <Link className="header-link" to="/sell">Sell</Link>
               </li>
               <li>
-                <Link to="/chat">Chat</Link>
+                <Link className="header-link" to="/mylistings">My Listings</Link>
               </li>
               <li>
-                <button onClick={handleLogout}>Logout</button>
+                <Link className="header-link" to="/chat">Chat</Link>
               </li>
             </ul>
+            <div className="account-info-container">
+              <p>{user.username}</p>
+              <button className='logout-btn' onClick={handleLogout}>Logout</button>
+            </div>
           </>
         )}
       </nav>

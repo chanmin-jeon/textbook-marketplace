@@ -3,7 +3,7 @@ const usersRouter = require('express').Router()
 const bycrpt = require('bcrypt') // password hashing 
 
 usersRouter.get('/', async (req, res) => {
-    const allUsers = await User.find({})
+    const allUsers = await User.find({}).populate('listings')
     res.json(allUsers)
 })
 

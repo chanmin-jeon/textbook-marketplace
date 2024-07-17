@@ -20,7 +20,7 @@ mongoose.connect(config.URL)
     })
 
 app.use(cors())
-app.use(express.json()) // needed to read request body
+app.use(express.json({limit: '15mb' })) // needed to read request body
 app.use(middleware.requestLog)
 
 app.use('/api/users', usersRouter)
@@ -30,8 +30,5 @@ app.use('/api/login', loginRouter)
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 
-app.get('/', (req, res) => {
-    res.send('<p>new file structure</p>')
-})
 
 module.exports = app

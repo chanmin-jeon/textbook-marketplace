@@ -13,11 +13,11 @@ const CreateAccount = ({signUp}) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (password.length <= 4 || username.length <= 4) {
-      console.log('password and username length must be atleast 5 characters')
+      setErrorMessage('password and username length must be atleast 5 characters')
     } else if (password !== passwordConfirm) {
-      console.log('passwords do not match')
+      setErrorMessage('passwords do not match')
     } else if (name === '') {
-        console.log('name cannot be empty')
+        setErrorMessage('name cannot be empty')
     } else {
       try {
         await signUp(username, name, passwordConfirm)
@@ -25,6 +25,7 @@ const CreateAccount = ({signUp}) => {
         setName('')
         setPassword('')
         setPasswordConfirm('')
+        setErrorMessage('')
         navigate('/login')
       }
       catch (error) {
@@ -34,47 +35,50 @@ const CreateAccount = ({signUp}) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} 
-    className="create-form account-form">
-      <div>
-        <h1>
-          Create Account
-        </h1>
-      </div>
-      <div>
-        <input className="create-input account-input" 
-        type="text" 
-        placeholder="username"
-        value={username}
-        onChange={event => setUsername(event.target.value)}/>
-      </div>
-      <div>
-        <input className="create-input account-input" 
-        type="text" 
-        placeholder="name"
-        value={name}
-        onChange={event => setName(event.target.value)}/>
-      </div>
-      <div>
-        <input className="create-input account-input" 
-        type="password" 
-        placeholder="password"
-        vlaue={password}
-        onChange={event => setPassword(event.target.value)}/>
-      </div>
-      <div>
-        <input className="create-input account-input" 
-        type="password" 
-        placeholder="confirm password"
-        value={passwordConfirm}
-        onChange={event => setPasswordConfirm(event.target.value)}/>
-      </div>
-      <div>
-        <button className="create-btn submit-btn"
-        type="submit">Create Account</button>
-      </div>
-      {errorMessage && <p className='error-message'>{errorMessage}</p>}
-    </form>
+    <div className='main-container'>
+        <form onSubmit={handleSubmit} 
+        className="create-form account-form">
+        <div>
+          <h1>
+            Create Account
+          </h1>
+        </div>
+        <div>
+          <input className="create-input account-input" 
+          type="text" 
+          placeholder="username"
+          value={username}
+          onChange={event => setUsername(event.target.value)}/>
+        </div>
+        <div>
+          <input className="create-input account-input" 
+          type="text" 
+          placeholder="name"
+          value={name}
+          onChange={event => setName(event.target.value)}/>
+        </div>
+        <div>
+          <input className="create-input account-input" 
+          type="password" 
+          placeholder="password"
+          vlaue={password}
+          onChange={event => setPassword(event.target.value)}/>
+        </div>
+        <div>
+          <input className="create-input account-input" 
+          type="password" 
+          placeholder="confirm password"
+          value={passwordConfirm}
+          onChange={event => setPasswordConfirm(event.target.value)}/>
+        </div>
+        <div>
+          <button className="create-btn submit-btn"
+          type="submit">Create Account</button>
+        </div>
+        {errorMessage && <p className='error-message'>{errorMessage}</p>}
+      </form>
+    </div>
+    
   )
 }
 
