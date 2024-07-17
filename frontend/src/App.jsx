@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import SellItem from './pages/SellItem'
 import MyListings from './pages/MyListings'
 import Header from './components/Header'
+import ConvoToggle from './components/ConvoToggle'
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [loginErrorMessage, setLoginErrorMessage] = useState('')
   const [textbooks, setTextbooks] = useState([])
+  const [chatVisible, setChatVisible] = useState(false)
   
   const navigate = useNavigate()
 
@@ -122,6 +124,7 @@ const App = () => {
       <header>
         <Header user={user} setUser={setUser}></Header>
       </header>
+      <ConvoToggle chatVisible={chatVisible} setChatVisible={setChatVisible}/>
       <Routes>
         <Route path="/" element={<Home user={user} textbooks={textbooks} handleDelete={handleDelete}/>}/>
         <Route path='/login' element={<Login login={handleLogin} 

@@ -14,6 +14,12 @@ const userSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId, 
             ref: 'Textbook'
         }
+    ],
+    conversations: [
+        {
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Conversation'
+        }
     ]
 })
 

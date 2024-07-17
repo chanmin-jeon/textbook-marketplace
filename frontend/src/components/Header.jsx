@@ -1,5 +1,5 @@
-import logo from '../assets/logo.png';
-import { Link, useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Header = ({ user, setUser }) => {
 
@@ -38,9 +38,6 @@ const Header = ({ user, setUser }) => {
               </li>
               <li>
                 <Link className="header-link" to="/mylistings">My Listings</Link>
-              </li>
-              <li>
-                <Link className="header-link" to="/chat">Chat</Link>
               </li>
             </ul>
             <div className="account-info-container">

@@ -1,7 +1,25 @@
+import conversationService from '../services/conversation'
+
 const TextbookDisplay = ({user, textbook, handleDelete}) => {
 
   const deleteHandle = async (id) => {
-    handleDelete(id)
+    window.confirm('Are you sure you want to delete this listing?', () => {
+      handleDelete(id)
+    })
+  }
+
+  const createConvo = async (userId, sellerId, textbookId) => {
+    let convoInfo = {
+      buyerId: userId, 
+      sellerId: sellerId, 
+      textbookId: textbookId
+    }
+    try {
+      const newConvo = await conversationService.createNew(convoInfo)
+      console.log(newConvo)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -31,7 +49,7 @@ const TextbookDisplay = ({user, textbook, handleDelete}) => {
       </div>
       :
       <div className="message-seller-btn-container">
-        <button className="message-seller-btn">Message Seller</button>
+        <button onClick={() => createConvo(user.id, textbook.seller.id, textbook.id)}className="message-seller-btn">Message Seller</button>
       </div>
       }
     </article>

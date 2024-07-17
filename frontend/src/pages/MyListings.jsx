@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react'
 import '../services/textbooks'
 import TextbookDisplay from '../components/TextbookDisplay.jsx'
 

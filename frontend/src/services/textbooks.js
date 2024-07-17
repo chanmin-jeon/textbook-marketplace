@@ -27,6 +27,8 @@ const deleteListing = async (textbookId) => {
   }
 
   const response = await axios.delete(`${baseURL}/${textbookId}`, config)
+
+  return response.data
 }
 
 export default {
