@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import conversationService from '../services/conversation'
+import { io } from 'socket.io-client'
+
+const socket = io.connect('http://localhost:8000') // set up front end socket connection
 
 const ChatView = ({ conversation, onBack, user }) => {
   const [messages, setMessages] = useState([])
@@ -8,30 +11,58 @@ const ChatView = ({ conversation, onBack, user }) => {
 
   useEffect(() => {
     const fetchConvoMessages = async () => {
+      // fetch messages from backend 
       try {
-        const convoMessages = await conversationService.getConversationMessages(conversation._id)
-        setMessages(convoMessages)
+        const convoMessages = await conversationService.getConversationMessages(conversation._id);
+        setMessages((prevMessages) => {
+        // Merge the fetched messages with the current state, avoiding duplicates
+        const newMessages = convoMessages.filter(
+          (convoMessage) => !prevMessages.some((m) => m._id === convoMessage._id)
+        )
+        return [...prevMessages, ...newMessages]
+      })
       } catch (error) {
         console.error('Error fetching conversation messages:', error)
       }
     }
     fetchConvoMessages()
+
+    // join conversation
+    socket.emit('join-conversation', conversation._id)
+
+    socket.on('receive-message', (message) => {
+      setMessages((prevMessages) => {
+        // Only add the message if it doesn't already exist in the state
+        if (!prevMessages.some((m) => m._id === message._id)) {
+          return [...prevMessages, message]
+        }
+        return prevMessages
+      })
+    })
+
+    return () => {
+      socket.off('receive-message')
+    }
+
   }, [conversation]) // fetch everytime conversation changes 
 
   const handleSendMessage = async (event) => {
     event.preventDefault()
     const messageInfo = {
       senderId: user.id, 
-      content: messageToSend
+      content: messageToSend, 
+      conversationId: conversation._id
     }
     try {
       const sentMessage = await conversationService.sendMessage(conversation._id, messageInfo)
       // update frontend immediatly, backend takes a while
       const messageWithUpdatedSender = {
         ...sentMessage, 
-        from: user
+        from: user, 
+        conversationId: conversation._id
       }
       setMessages(messages => [...messages, messageWithUpdatedSender])
+      socket.emit('send-message', messageWithUpdatedSender)
     } catch (error) {
       console.log(error)
     }
@@ -62,12 +93,6 @@ const ChatView = ({ conversation, onBack, user }) => {
       <div className="chat-messages">
         {messages.map((message) => {
           const messageFromCurrentUser = message.from.id === user.id
-          console.log({
-            message: message.content,
-            from: message.from, 
-            to: message.to, 
-            currentUser: user.id
-          })
           return (
             <div
               key={message._id}

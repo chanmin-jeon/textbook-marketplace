@@ -76,7 +76,6 @@ const App = () => {
       // get user conversations
       const userConversations = await conversationService.getAllUserConvo(currUser.id)
       setConversations(userConversations)
-      console.log(userConversations)
       setUsername('')
       setPassword('')
       setErrorMessage('')

@@ -49,11 +49,13 @@ conversationsRouter.post('/', async (req, res) => {
 // get conversations of the current user 
 conversationsRouter.get('/:userId', async (req, res) => {
   const userId = req.params.userId
+  
   try {
     const user = await User.findById(userId)
     if (!user) {
       return res.status(400).json({error: 'user id invalid'})
     }
+
     const conversations = await Conversation.find({
       // find conversations where user is buyer or seller
       $or: [
