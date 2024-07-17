@@ -6,7 +6,15 @@ const ChatDisplay = ({conversations, onSelectConversation}) => {
       {conversations.map(conversation => {
         return (
           <div className="chat-container" key={conversation._id} onClick={() => onSelectConversation(conversation)}>
-            <p>{conversation.textbook.title}</p>
+            {(!conversation.textbook) ? 
+            <p style={{ fontStyle: 'italic' }}>
+              This item has been deleted
+            </p>
+            :  
+            <p>
+              {conversation.textbook.title}
+            </p>
+            }
           </div>
         )
       })}
