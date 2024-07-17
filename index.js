@@ -8,7 +8,7 @@ const server = http.createServer(app) // create http server with app
 // Initialize Socket.IO
 const io = socketIo(server, {
     cors: {
-        origin: ['http://localhost:5174', 'http://localhost:8000'],
+        origin: ['https://textbook-marketplace.onrender.com'],
         credentials: true
     }, 
     pingTimeout: 60000

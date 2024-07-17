@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import conversationService from '../services/conversation'
 import { io } from 'socket.io-client'
 
-const socket = io.connect('http://localhost:8000') // set up front end socket connection
+const socket = io.connect('https://textbook-marketplace.onrender.com') // set up front end socket connection
 
 const ChatView = ({ conversation, onBack, user }) => {
   const [messages, setMessages] = useState([])
