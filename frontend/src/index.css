@@ -335,7 +335,7 @@ nav ul {
   grid-template-columns: 2fr 3fr 1fr;
   align-items: center;
   width: 30vw; 
-  min-width: 25rem; 
+  min-width: 30rem; 
   color: purple; 
   height: 15rem; 
 }
