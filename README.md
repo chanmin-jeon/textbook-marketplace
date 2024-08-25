@@ -21,7 +21,7 @@ Check it out!
   - If the link above is not working, then the free tier of render may have run out.
   - Check out the demo video below!
 ## Demo
-  - Demo video coming soon
+https://github.com/user-attachments/assets/bbf8f3fe-5056-4248-859e-f49fc311481c
 ## Usage 
   - Creating an Account: Users can sign up to start listing textbooks or browse available listings.
   - Posting a Textbook: List a textbook for sale by providing details such as the title, author, subject, and price.
